@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مفاجأة خاصة لتسنيم 🧸💖</title>
+  <title>مفاجأة لتسنيم 🧸🤍</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,118 +12,206 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     body {
-      background: linear-gradient(135deg, #ffeef2, #ffd6e0);
+      background: linear-gradient(135deg, #ffd6e0, #ffccd5, #fff0f3);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #555;
+      color: #444;
       padding: 15px;
-    }
-    .container {
-      background: rgba(255, 255, 255, 0.95);
-      width: 100%;
-      max-width: 450px;
-      padding: 25px;
-      border-radius: 25px;
-      box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
-      text-align: center;
+      overflow-x: hidden;
       position: relative;
     }
+
+    /* قلوب ودباديب متحركة بالخلفية */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .floating-item {
+      position: absolute;
+      bottom: -60px;
+      font-size: 24px;
+      opacity: 0.6;
+      animation: floatUp 8s infinite linear;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      max-width: 440px;
+      padding: 26px;
+      border-radius: 30px;
+      box-shadow: 0 15px 35px rgba(255, 154, 179, 0.35);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      border: 2px solid #ffe5ec;
+    }
+
     .screen { display: none; }
-    .screen.active { display: block; animation: fadeIn 0.4s ease-in-out; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .screen.active { display: block; animation: zoomIn 0.4s ease-out; }
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
-    .avatar-box {
-      font-size: 70px;
-      margin-bottom: 10px;
+
+    .bear-header {
+      font-size: 65px;
+      margin-bottom: 8px;
+      display: inline-block;
+      animation: bearBounce 2.5s infinite ease-in-out;
     }
-    h2 { color: #d63384; margin-bottom: 15px; }
+    @keyframes bearBounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-8px) scale(1.05); }
+    }
+
+    h2 { color: #d63384; margin-bottom: 12px; font-weight: 700; }
+    .sub-text { font-size: 14px; margin-bottom: 18px; color: #777; }
+
     .pin-display {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 22px;
     }
     .pin-dot {
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       border: 2px solid #ff85a1;
       background: transparent;
+      transition: all 0.25s ease;
     }
-    .pin-dot.filled { background: #ff4d6d; }
+    .pin-dot.filled { 
+      background: #ff4d6d; 
+      box-shadow: 0 0 10px rgba(255, 77, 109, 0.6);
+      transform: scale(1.15);
+    }
+
     .keypad {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      max-width: 260px;
+      max-width: 250px;
       margin: 0 auto;
     }
     .btn-key {
       background: #fff0f3;
       border: 1px solid #ffccd5;
       color: #d63384;
-      font-size: 20px;
+      font-size: 21px;
       font-weight: bold;
-      padding: 14px;
+      padding: 13px;
       border-radius: 50%;
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      box-shadow: 0 3px 8px rgba(255, 182, 193, 0.25);
+      transition: all 0.15s ease;
     }
-    .btn-key:active { transform: scale(0.95); background: #ffccd5; }
+    .btn-key:active { transform: scale(0.9); background: #ffccd5; }
+
     .boxes-grid {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
+      gap: 10px;
       margin: 25px 0;
     }
     .gift-card {
       background: #fff0f3;
       border: 2px dashed #ff85a1;
-      border-radius: 15px;
-      padding: 15px 10px;
+      border-radius: 20px;
+      padding: 15px 5px;
       cursor: pointer;
-      width: 30%;
-      font-size: 40px;
-      transition: transform 0.2s;
+      width: 32%;
+      font-size: 42px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .gift-card:hover { transform: translateY(-5px); background: #ffe3e8; }
-    .gift-title { font-size: 14px; font-weight: bold; color: #d63384; margin-top: 5px; }
-    .surprise-content {
+    .gift-card:hover { 
+      transform: translateY(-8px) scale(1.05); 
+      background: #ffe3e8;
+      border-color: #ff4d6d;
+    }
+    .gift-title { font-size: 13px; font-weight: bold; color: #d63384; margin-top: 6px; }
+
+    .surprise-box {
       background: #fff0f3;
       padding: 20px;
-      border-radius: 15px;
-      margin: 20px 0;
-      line-height: 1.8;
+      border-radius: 20px;
+      margin: 18px 0;
+      line-height: 1.9;
       font-size: 15px;
+      border: 1px solid #ffccd5;
     }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 16px;
+      margin: 15px 0;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     .back-btn {
-      background: #ff4d6d;
+      background: linear-gradient(135deg, #ff4d6d, #ff758f);
       color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 20px;
+      padding: 10px 24px;
+      border-radius: 25px;
       cursor: pointer;
       font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(255, 77, 109, 0.3);
+      transition: transform 0.2s;
     }
-    .shake { animation: shakeAnim 0.3s ease; }
+    .back-btn:active { transform: scale(0.95); }
+
+    .shake { animation: shakeAnim 0.35s ease; }
     @keyframes shakeAnim {
       0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-8px); }
-      75% { transform: translateX(8px); }
+      20%, 60% { transform: translateX(-9px); }
+      40%, 80% { transform: translateX(9px); }
     }
   </style>
 </head>
 <body>
 
+  <!-- قلوب ودباديب طايرة بالخلفية -->
+  <div class="bg-animation">
+    <div class="floating-item" style="left: 10%; animation-duration: 9s;">🧸</div>
+    <div class="floating-item" style="left: 25%; animation-duration: 11s; animation-delay: 2s;">💖</div>
+    <div class="floating-item" style="left: 45%; animation-duration: 8s; animation-delay: 4s;">🌸</div>
+    <div class="floating-item" style="left: 65%; animation-duration: 12s; animation-delay: 1s;">🧸</div>
+    <div class="floating-item" style="left: 85%; animation-duration: 10s; animation-delay: 3s;">✨</div>
+  </div>
+
   <div class="container" id="app">
-    <!-- الشاشة الأولى: القفل والرمز السري -->
+    <!-- الشاشة الأولى: القفل والرمز -->
     <div class="screen active" id="screen-lock">
-      <div class="avatar-box">🧸💖🧸</div>
-      <h2>مفاجأة لتسنيم</h2>
-      <p style="font-size: 13px; margin-bottom: 15px; color: #888;">أدخلي رمزنا السري لفتح المفاجأة</p>
+      <div class="bear-header">🧸🎀🧸</div>
+      <h2>إلى الغالية تسنيم</h2>
+      <p class="sub-text">أدخلي الرمز السري لفتح هديتك الخاصة</p>
       
       <div class="pin-display">
         <div class="pin-dot" id="dot-0"></div>
@@ -148,64 +236,70 @@
       </div>
     </div>
 
-    <!-- الشاشة الثانية: اختيار الهدايا -->
+    <!-- الشاشة الثانية: قائمة الهدايا -->
     <div class="screen" id="screen-gifts">
-      <div class="avatar-box">🎉🧸🎀</div>
-      <h2>تم فتح الصندوق بنجاح!</h2>
-      <p style="font-size: 14px; color: #777;">اختاري أي مفاجأة حابة تشوفيها يا تسنيم:</p>
+      <div class="bear-header">🧸✨🎁</div>
+      <h2>هدية من القلب لتسنيم</h2>
+      <p class="sub-text">اختاري المفاجأة اللي حابة تشوفيها أولاً:</p>
       
       <div class="boxes-grid">
         <div class="gift-card" onclick="openGift(1)">
-          🎁
-          <div class="gift-title">الورد</div>
+          💐
+          <div class="gift-title">باقة الورد</div>
         </div>
         <div class="gift-card" onclick="openGift(2)">
-          🧸
-          <div class="gift-title">أغنيتنا</div>
+          🎶
+          <div class="gift-title">أغنية إلك</div>
         </div>
         <div class="gift-card" onclick="openGift(3)">
           💌
-          <div class="gift-title">رسالتي</div>
+          <div class="gift-title">كلمات إلك</div>
         </div>
       </div>
     </div>
 
-    <!-- الشاشة الثالثة: المفاجأة 1 (باقة الورد) -->
+    <!-- المفاجأة الأولى: الورد والدب -->
     <div class="screen" id="surprise-1">
       <h2>باقة ورد لتسنيم 🌸</h2>
-      <div style="font-size: 80px; margin: 15px 0;">💐</div>
-      <div class="surprise-content">
-        ورد التوليب والياسمين لعيونك الحلوين! كل وردة هون بتعبر عن معزة خاصة وغلاوة ما بتنتهي.
+      <div class="bear-header">🧸💐🌷</div>
+      <div class="surprise-box">
+        ورد التوليب والياسمين لعيونك الحلوين.. كل وردة هون بتعبّر عن معزتك ومكانتك الغالية اللي ما بتشبه حدا.
       </div>
       <button class="back-btn" onclick="goToGifts()">رجوع للهدايا</button>
     </div>
 
-    <!-- الشاشة الرابعة: المفاجأة 2 (مشغل الأغنية) -->
+    <!-- المفاجأة الثانية: أغنية بروحي فتاة (عبدالرحمن محمد) -->
     <div class="screen" id="surprise-2">
-      <h2>أغنية من القلب 🎶</h2>
-      <div style="font-size: 80px; margin: 15px 0;">🧸📻</div>
-      <div class="surprise-content">
-        <p><strong>A Playlist Made For Tasneem</strong></p>
-        <p style="margin-top: 8px; font-size: 13px;">(يمكنك وضع رابط صوتي أو فيديو يوتيوب هنا)</p>
+      <h2>بروحي فتاة 🎶</h2>
+      <p style="font-size: 13px; color: #888;">أغنية مخصصة لعيون تسنيم 🧸</p>
+      
+      <div class="video-container">
+        <iframe 
+          src="https://www.youtube.com/embed/VZYyEhMhtqY" 
+          title="Abdulrahman Mohammed - بروحي فتاة" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
       </div>
+
       <button class="back-btn" onclick="goToGifts()">رجوع للهدايا</button>
     </div>
 
-    <!-- الشاشة الخامسة: المفاجأة 3 (رسالة حب) -->
+    <!-- المفاجأة الثالثة: رسالة إهداء بدون ذكر عيد ميلاد -->
     <div class="screen" id="surprise-3">
       <h2>رسالة من القلب 💌</h2>
-      <div style="font-size: 60px; margin: 10px 0;">🧸✨</div>
-      <div class="surprise-content" style="text-align: right;">
-        إلى الغالية <strong>تسنيم</strong>،<br><br>
-        كل يوم بيمر بتضلّي الشخص الأقرب والألطف. وجودك بيعطي لكل لحظة معنى خاص وطاقة حلوة متلك تماماً.<br><br>
-        دائماً وأبداً.. كل عام وأنتِ الأغلى! 🤍
+      <div class="bear-header">🧸🤍✨</div>
+      <div class="surprise-box" style="text-align: right;">
+        إلى العزيزة <strong>تسنيم</strong>،<br><br>
+        في ناس وجودهم بحياتنا بيعطي للأيام طاقة حلوة وراحة بال، وأنتِ من ألطف وأغلى الأشخاص.<br><br>
+        هي الهدية البسيطة لتتذكري دايماً قديش إلك معزة ومكانة خاصة بتضل محفوظة بالقلب.. دائماً وأبداً. 🧸🌸
       </div>
       <button class="back-btn" onclick="goToGifts()">رجوع للهدايا</button>
     </div>
   </div>
 
   <script>
-    const SECRET_CODE = "1234"; // غيّر الرمز السري من هنا
+    const SECRET_CODE = "1234"; // الرمز السري لفتح الهدية
     let currentInput = "";
 
     function updateDots() {
