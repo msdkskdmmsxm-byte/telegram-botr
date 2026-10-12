@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مفاجأة خاصة لتسنيم 🧸💖</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #ffeef2, #ffd6e0);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #555;
+      padding: 15px;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      width: 100%;
+      max-width: 450px;
+      padding: 25px;
+      border-radius: 25px;
+      box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
+      text-align: center;
+      position: relative;
+    }
+    .screen { display: none; }
+    .screen.active { display: block; animation: fadeIn 0.4s ease-in-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .avatar-box {
+      font-size: 70px;
+      margin-bottom: 10px;
+    }
+    h2 { color: #d63384; margin-bottom: 15px; }
+    .pin-display {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .pin-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid #ff85a1;
+      background: transparent;
+    }
+    .pin-dot.filled { background: #ff4d6d; }
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 260px;
+      margin: 0 auto;
+    }
+    .btn-key {
+      background: #fff0f3;
+      border: 1px solid #ffccd5;
+      color: #d63384;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .btn-key:active { transform: scale(0.95); background: #ffccd5; }
+    .boxes-grid {
+      display: flex;
+      justify-content: space-around;
+      margin: 25px 0;
+    }
+    .gift-card {
+      background: #fff0f3;
+      border: 2px dashed #ff85a1;
+      border-radius: 15px;
+      padding: 15px 10px;
+      cursor: pointer;
+      width: 30%;
+      font-size: 40px;
+      transition: transform 0.2s;
+    }
+    .gift-card:hover { transform: translateY(-5px); background: #ffe3e8; }
+    .gift-title { font-size: 14px; font-weight: bold; color: #d63384; margin-top: 5px; }
+    .surprise-content {
+      background: #fff0f3;
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px 0;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+    .back-btn {
+      background: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .shake { animation: shakeAnim 0.3s ease; }
+    @keyframes shakeAnim {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="app">
+    <!-- الشاشة الأولى: القفل والرمز السري -->
+    <div class="screen active" id="screen-lock">
+      <div class="avatar-box">🧸💖🧸</div>
+      <h2>مفاجأة لتسنيم</h2>
+      <p style="font-size: 13px; margin-bottom: 15px; color: #888;">أدخلي رمزنا السري لفتح المفاجأة</p>
+      
+      <div class="pin-display">
+        <div class="pin-dot" id="dot-0"></div>
+        <div class="pin-dot" id="dot-1"></div>
+        <div class="pin-dot" id="dot-2"></div>
+        <div class="pin-dot" id="dot-3"></div>
+      </div>
+
+      <div class="keypad">
+        <button class="btn-key" onclick="pressKey('1')">1</button>
+        <button class="btn-key" onclick="pressKey('2')">2</button>
+        <button class="btn-key" onclick="pressKey('3')">3</button>
+        <button class="btn-key" onclick="pressKey('4')">4</button>
+        <button class="btn-key" onclick="pressKey('5')">5</button>
+        <button class="btn-key" onclick="pressKey('6')">6</button>
+        <button class="btn-key" onclick="pressKey('7')">7</button>
+        <button class="btn-key" onclick="pressKey('8')">8</button>
+        <button class="btn-key" onclick="pressKey('9')">9</button>
+        <button class="btn-key" onclick="clearPin()">C</button>
+        <button class="btn-key" onclick="pressKey('0')">0</button>
+        <button class="btn-key" onclick="checkPin()">❤</button>
+      </div>
+    </div>
+
+    <!-- الشاشة الثانية: اختيار الهدايا -->
+    <div class="screen" id="screen-gifts">
+      <div class="avatar-box">🎉🧸🎀</div>
+      <h2>تم فتح الصندوق بنجاح!</h2>
+      <p style="font-size: 14px; color: #777;">اختاري أي مفاجأة حابة تشوفيها يا تسنيم:</p>
+      
+      <div class="boxes-grid">
+        <div class="gift-card" onclick="openGift(1)">
+          🎁
+          <div class="gift-title">الورد</div>
+        </div>
+        <div class="gift-card" onclick="openGift(2)">
+          🧸
+          <div class="gift-title">أغنيتنا</div>
+        </div>
+        <div class="gift-card" onclick="openGift(3)">
+          💌
+          <div class="gift-title">رسالتي</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- الشاشة الثالثة: المفاجأة 1 (باقة الورد) -->
+    <div class="screen" id="surprise-1">
+      <h2>باقة ورد لتسنيم 🌸</h2>
+      <div style="font-size: 80px; margin: 15px 0;">💐</div>
+      <div class="surprise-content">
+        ورد التوليب والياسمين لعيونك الحلوين! كل وردة هون بتعبر عن معزة خاصة وغلاوة ما بتنتهي.
+      </div>
+      <button class="back-btn" onclick="goToGifts()">رجوع للهدايا</button>
+    </div>
+
+    <!-- الشاشة الرابعة: المفاجأة 2 (مشغل الأغنية) -->
+    <div class="screen" id="surprise-2">
+      <h2>أغنية من القلب 🎶</h2>
+      <div style="font-size: 80px; margin: 15px 0;">🧸📻</div>
+      <div class="surprise-content">
+        <p><strong>A Playlist Made For Tasneem</strong></p>
+        <p style="margin-top: 8px; font-size: 13px;">(يمكنك وضع رابط صوتي أو فيديو يوتيوب هنا)</p>
+      </div>
+      <button class="back-btn" onclick="goToGifts()">رجوع للهدايا</button>
+    </div>
+
+    <!-- الشاشة الخامسة: المفاجأة 3 (رسالة حب) -->
+    <div class="screen" id="surprise-3">
+      <h2>رسالة من القلب 💌</h2>
+      <div style="font-size: 60px; margin: 10px 0;">🧸✨</div>
+      <div class="surprise-content" style="text-align: right;">
+        إلى الغالية <strong>تسنيم</strong>،<br><br>
+        كل يوم بيمر بتضلّي الشخص الأقرب والألطف. وجودك بيعطي لكل لحظة معنى خاص وطاقة حلوة متلك تماماً.<br><br>
+        دائماً وأبداً.. كل عام وأنتِ الأغلى! 🤍
+      </div>
+      <button class="back-btn" onclick="goToGifts()">رجوع للهدايا</button>
+    </div>
+  </div>
+
+  <script>
+    const SECRET_CODE = "1234"; // غيّر الرمز السري من هنا
+    let currentInput = "";
+
+    function updateDots() {
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById(`dot-${i}`);
+        if (i < currentInput.length) {
+          dot.classList.add('filled');
+        } else {
+          dot.classList.remove('filled');
+        }
+      }
+    }
+
+    function pressKey(num) {
+      if (currentInput.length < 4) {
+        currentInput += num;
+        updateDots();
+        if (currentInput.length === 4) {
+          setTimeout(checkPin, 200);
+        }
+      }
+    }
+
+    function clearPin() {
+      currentInput = "";
+      updateDots();
+    }
+
+    function checkPin() {
+      if (currentInput === SECRET_CODE) {
+        showScreen('screen-gifts');
+      } else {
+        const container = document.getElementById('app');
+        container.classList.add('shake');
+        setTimeout(() => {
+          container.classList.remove('shake');
+          clearPin();
+        }, 400);
+      }
+    }
+
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function openGift(index) {
+      showScreen(`surprise-${index}`);
+    }
+
+    function goToGifts() {
+      showScreen('screen-gifts');
+    }
+  </script>
+</body>
+</html>
